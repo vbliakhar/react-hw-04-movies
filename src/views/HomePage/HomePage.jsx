@@ -1,15 +1,39 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import * as movieShellAPI from "../../services/movieShelf-api";
+import { Link, useRouteMatch } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
+  const { url } = useRouteMatch();
+  const [movies, setMovies] = useState(null);
+  const location = useLocation();
+
+  useEffect(() => {
+    movieShellAPI.fetchMovies().then((response) => {
+      setMovies(response.results);
+    });
+  }, []);
   return (
     <div>
-      <h1>HomePage</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-        assumenda quidem corporis, tempore magni neque. Dolore iusto animi,
-        suscipit fugit aperiam harum, esse cupiditate sint praesentium dolor
-        natus, aliquam odit.
-      </p>
+      <h1>Trending today</h1>
+
+      {movies &&
+        movies.map(
+          (movie) =>
+            movie.title && (
+              <li key={movie.id}>
+                <Link
+                  to={{
+                    pathname: `${url}movies/${movie.id}`,
+                    state: { form: location },
+                  }}
+                >
+                  {movie.title}
+                </Link>
+              </li>
+            )
+        )}
     </div>
   );
 };

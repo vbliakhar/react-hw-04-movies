@@ -22,6 +22,7 @@ const Counter = () => {
   });
   return (
     <div>
+      <h1>We use the method useReducer</h1>
       <button onClick={() => dispatch({ type: "increment", payload: 1 })}>
         Increment
       </button>

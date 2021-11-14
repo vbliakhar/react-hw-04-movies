@@ -17,6 +17,7 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
+    console.log(location);
     movieShellAPI.fetchMovieById(moviesId).then((response) => {
       setMovie(response);
     });
@@ -28,6 +29,7 @@ const MovieDetails = () => {
     }
     history.push("/");
   };
+
   return (
     <>
       {/* <PageHeading text={`test ${moviesId}`} /> */}
@@ -49,10 +51,18 @@ const MovieDetails = () => {
           <p>Additional information</p>
           <ul>
             <li key={moviesId}>
-              <NavLink to={`${url}/cast`}>Cast</NavLink>
+              <NavLink
+                to={{ pathname: `${url}/cast`, state: { form: location } }}
+              >
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              <NavLink
+                to={{ pathname: `${url}/reviews`, state: { form: location } }}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
         </>

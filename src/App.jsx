@@ -1,14 +1,18 @@
+import { lazy } from "react";
 import { Switch, Route } from "react-router-dom";
 import "./App.scss";
 
 import Navigation from "./components/Navigation/Navigation";
 import HomePage from "./views/HomePage/HomePage";
+
 import NotFoundView from "./views/NotFoundView";
-import Movies from "./views/Movies/Movies";
+// import Movies from "./views/Movies/Movies";
 import MovieDetails from "./components/MovieDetails/MovieDetails";
 // import Helper from "./components/Helper/Helper";
 // import Counter from "./components/Counter-useReducer/Counter";
 // import Memo from "./components/Friends-useMemo/Memo";
+
+const Movies = lazy(() => import("./views/Movies/Movies.jsx"));
 function App() {
   return (
     <div className="App">

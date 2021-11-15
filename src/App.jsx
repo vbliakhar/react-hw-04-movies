@@ -18,9 +18,11 @@ const MovieDetails = lazy(() =>
     "./components/MovieDetails/MovieDetails.jsx" /*webpackChunkName: "MovieDetails"*/
   )
 );
+
 // import Helper from "./components/Helper/Helper";
 // import Counter from "./components/Counter-useReducer/Counter";
 // import Memo from "./components/Friends-useMemo/Memo";
+// Comment
 function App() {
   return (
     <div className="App">

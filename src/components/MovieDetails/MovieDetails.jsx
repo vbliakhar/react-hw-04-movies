@@ -1,12 +1,20 @@
-import React from "react";
 // import PageHeading from "../PageHeading/PageHeading";
 import { useParams, useLocation, useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { NavLink, Route, useRouteMatch } from "react-router-dom";
 import * as movieShellAPI from "../../services/movieShelf-api";
-import MovieCast from "../MovieCast/MovieCast";
-import MovieReviews from "../MovieReviews/MovieReviews";
+// import MovieCast from "../MovieCast/MovieCast";
+// import MovieReviews from "../MovieReviews/MovieReviews";
 import style from "./MovieDetails.module.scss";
+
+const MovieCast = lazy(() =>
+  import("../MovieCast/MovieCast.jsx" /* webpackChunkName: "MovieCast"*/)
+);
+const MovieReviews = lazy(() =>
+  import(
+    "../MovieReviews/MovieReviews.jsx" /* webpackChunkName: "MovieReviews"*/
+  )
+);
 
 const MovieDetails = () => {
   const history = useHistory();
@@ -17,7 +25,6 @@ const MovieDetails = () => {
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    console.log(location);
     movieShellAPI.fetchMovieById(moviesId).then((response) => {
       setMovie(response);
     });
@@ -68,12 +75,15 @@ const MovieDetails = () => {
         </>
       )}
       <hr />
-      <Route path={`${path}/cast`} exact>
-        {movie && <MovieCast />}
-      </Route>
-      <Route path={`${path}/reviews`} exact>
-        {movie && <MovieReviews />}
-      </Route>
+      <Suspense fallback={<h1>Loader ...</h1>}>
+        <Route path={`${path}/cast`} exact>
+          {movie && <MovieCast />}
+        </Route>
+
+        <Route path={`${path}/reviews`} exact>
+          {movie && <MovieReviews />}
+        </Route>
+      </Suspense>
     </>
   );
 };

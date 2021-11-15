@@ -10,7 +10,7 @@ const HomePage = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.log(location);
+    // console.log(location);
     movieShellAPI.fetchMovies().then((response) => {
       setMovies(response.results);
     });

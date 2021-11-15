@@ -15,7 +15,6 @@ const Movies = () => {
 
   useEffect(() => {
     if (saveList) {
-      console.log(location);
       movieShellAPI.fetchMovieBySearch(saveList).then((response) => {
         if (response.total_pages > 0) {
           setListMovies(response.results);

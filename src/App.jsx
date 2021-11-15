@@ -22,7 +22,7 @@ const MovieDetails = lazy(() =>
 // import Helper from "./components/Helper/Helper";
 // import Counter from "./components/Counter-useReducer/Counter";
 // import Memo from "./components/Friends-useMemo/Memo";
-// Comment
+// Demo
 function App() {
   return (
     <div className="App">

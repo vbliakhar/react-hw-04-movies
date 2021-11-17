@@ -1,0 +1,21 @@
+.container {
+  background: white;
+  width: 978px;
+  margin: 30px auto;
+  border-radius: 30px;
+  min-height: 600px;
+}
+.main {
+  padding: 30px;
+}
+@media (max-width: 800px) {
+  .container {
+    background: white;
+    width: 350px;
+    border-radius: 30px;
+    min-height: 400px;
+  }
+  .main {
+    padding: 30px;
+  }
+}

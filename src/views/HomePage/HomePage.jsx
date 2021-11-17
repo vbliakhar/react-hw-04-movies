@@ -3,44 +3,65 @@ import { useState, useEffect } from "react";
 import * as movieShellAPI from "../../services/movieShelf-api";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Loader from "react-loader-spinner";
+import loader from "../../services/loader";
+import "./HomePage.scss";
+import ImageError from "../../components/ImageError/ImageError";
+
 const HomePage = () => {
   const { url } = useRouteMatch();
-  const [movies, setMovies] = useState(null);
   const location = useLocation();
+  const [movies, setMovies] = useState(null);
+  const [isLoader, setLoader] = useState(false);
 
   useEffect(() => {
-    // console.log(location);
-    movieShellAPI.fetchMovies().then((response) => {
-      setMovies(response.results);
-    });
+    setLoader((isLoading) => !isLoading);
+    movieShellAPI
+      .fetchMovies()
+      .then((response) => {
+        setMovies(response.results);
+      })
+      .finally(() => setLoader((isLoading) => !isLoading));
   }, []);
   return (
     <div>
-      <h1>Trending today</h1>
-      <Loader
-        type="Puff"
-        color="green"
-        height={80}
-        width={80}
-        style={{ textAlign: "center" }}
-      />
-      {movies &&
-        movies.map(
-          (movie) =>
-            movie.title && (
-              <li key={movie.id}>
-                <Link
-                  to={{
-                    pathname: `${url}movies/${movie.id}`,
-                    state: { form: location },
-                  }}
-                >
-                  {movie.title}
-                </Link>
-              </li>
-            )
-        )}
+      <h1 style={{ textAlign: "center", textShadow: "2px 2px 2px #CE5937" }}>
+        Trending today
+      </h1>
+      {isLoader && loader()}
+      {movies && (
+        <ul className="blockImg">
+          {movies.map(
+            (movie) =>
+              movie.title && (
+                <li key={movie.id}>
+                  <Link
+                    to={{
+                      pathname: `${url}movies/${movie.id}`,
+                      state: {
+                        form: {
+                          location,
+                          label: "Home page",
+                        },
+                      },
+                    }}
+                  >
+                    {movie.poster_path ? (
+                      <img
+                        src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                        alt={movie.title}
+                        width="186"
+                      />
+                    ) : (
+                      <ImageError />
+                    )}
+
+                    {/* {movie.title} */}
+                  </Link>
+                </li>
+              )
+          )}
+        </ul>
+      )}
     </div>
   );
 };

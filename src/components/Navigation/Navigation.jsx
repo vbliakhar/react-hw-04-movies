@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navigation.module.scss";
 const Navigation = () => {
   return (
-    <nav>
+    <nav className={styles.nav}>
       <NavLink
         exact
         to={"/"}
@@ -19,20 +19,6 @@ const Navigation = () => {
       >
         Movies
       </NavLink>
-      {/* <NavLink
-        to={"/link"}
-        className={styles.link}
-        activeClassName={styles.activeLink}
-      >
-        Test
-      </NavLink>
-      <NavLink
-        to={"/counter"}
-        className={styles.link}
-        activeClassName={styles.activeLink}
-      >
-        Counter
-      </NavLink> */}
     </nav>
   );
 };

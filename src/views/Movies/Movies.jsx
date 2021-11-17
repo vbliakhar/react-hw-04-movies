@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import * as movieShellAPI from "../../services/movieShelf-api";
 import { Link, useRouteMatch } from "react-router-dom";
 import { useHistory, useLocation } from "react-router-dom";
+import ImageError from "../../components/ImageError/ImageError";
+import "./Movies.scss";
 
 const Movies = () => {
   const [handlerMovie, setHandlerMovie] = useState("");
@@ -58,19 +60,37 @@ const Movies = () => {
         </>
       )}
 
-      {listMovies &&
-        listMovies.map(({ original_title, id }) => (
-          <li key={id}>
-            <Link
-              to={{
-                pathname: `${url}/${id}`,
-                state: { form: location },
-              }}
-            >
-              {original_title}
-            </Link>
-          </li>
-        ))}
+      {listMovies && (
+        <ul className="blockImg">
+          {listMovies.map(({ original_title, id, poster_path }) => (
+            <li key={id}>
+              <Link
+                to={{
+                  pathname: `${url}/${id}`,
+                  state: {
+                    form: {
+                      location,
+                      label: "Search movies",
+                    },
+                  },
+                }}
+              >
+                {poster_path ? (
+                  <img
+                    src={`https://image.tmdb.org/t/p/original/${poster_path}`}
+                    alt={original_title}
+                    width="186"
+                  />
+                ) : (
+                  <ImageError />
+                )}
+
+                {/* {original_title} */}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 };

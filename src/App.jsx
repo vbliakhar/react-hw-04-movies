@@ -1,9 +1,8 @@
 import { Switch, Route } from "react-router-dom";
-import "./App.scss";
-
 import { lazy, Suspense } from "react";
-import Navigation from "./components/Navigation/Navigation";
+import Layout from "./hoc/Layout/Layout";
 
+import "./App.scss";
 const HomePage = lazy(() =>
   import("./views/HomePage/HomePage.jsx" /*webpackChunkName: "HomePageLazy"*/)
 );
@@ -19,33 +18,24 @@ const MovieDetails = lazy(() =>
   )
 );
 
-// import Helper from "./components/Helper/Helper";
-// import Counter from "./components/Counter-useReducer/Counter";
-// import Memo from "./components/Friends-useMemo/Memo";
-// Demo
 function App() {
   return (
-    <div className="App">
-      <Navigation />
-      <hr />
-      <Suspense fallback={<h1>Loader ...</h1>}>
+    <Layout>
+      <Suspense
+        fallback={
+          <>
+            <h1>loader ... </h1>
+          </>
+        }
+      >
         <Switch>
-          <Route path="/" exact>
-            <HomePage />
-          </Route>
-          <Route path="/movies" exact>
-            <Movies />
-          </Route>
-          <Route path="/movies/:moviesId">
-            <MovieDetails />
-          </Route>
-
-          <Route>
-            <NotFoundView />
-          </Route>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/movies" exact component={Movies} />
+          <Route path="/movies/:moviesId" component={MovieDetails} />
+          <Route component={NotFoundView} />
         </Switch>
       </Suspense>
-    </div>
+    </Layout>
   );
 }
 

@@ -30,6 +30,7 @@ function App() {
       >
         <Switch>
           <Route path="/" exact component={HomePage} />
+          <Route path="/react-hw-04-movies" exact component={HomePage} />
           <Route path="/movies" exact component={Movies} />
           <Route path="/movies/:moviesId" component={MovieDetails} />
           <Route component={NotFoundView} />

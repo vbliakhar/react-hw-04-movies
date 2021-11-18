@@ -22,6 +22,7 @@ const Movies = () => {
           setListMovies(response.results);
           setHandlerMovie("");
         } else {
+          setListMovies(null);
           setError(saveList);
         }
       });
@@ -44,7 +45,7 @@ const Movies = () => {
   //test
   return (
     <>
-      <form onSubmit={handlerSubmit}>
+      <form onSubmit={handlerSubmit} className="formMovies">
         <input
           type="text"
           name="bar"

@@ -1,0 +1,14 @@
+.blockImg {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  padding: 20px;
+}

@@ -7,8 +7,13 @@ async function fetchWithErrorHandling(url = "", config = {}) {
     ? await response.json()
     : Promise.reject(new Error("not found"));
 }
-export function fetchMovies() {
-  return fetchWithErrorHandling(`${BASE_URL}trending/all/day?api_key=${myKey}`);
+export function fetchMovies(page) {
+  return fetchWithErrorHandling(
+    `${BASE_URL}trending/all/day?api_key=${myKey}&page=${page}`,
+    {
+      params: 3,
+    }
+  );
 }
 export function fetchMovieById(moviesId) {
   return fetchWithErrorHandling(
@@ -25,8 +30,8 @@ export function fetchMovieByReviews(filmId) {
     `${BASE_URL}movie/${filmId}/reviews?api_key=${myKey}&language=en-US&page=1`
   );
 }
-export function fetchMovieBySearch(searchFilm) {
+export function fetchMovieBySearch(searchFilm, page) {
   return fetchWithErrorHandling(
-    `${BASE_URL}search/movie?api_key=${myKey}&query=${searchFilm}&language=en-US&page=1&include_adult=false`
+    `${BASE_URL}search/movie?api_key=${myKey}&query=${searchFilm}&language=en-US&page=1&include_adult=false&page=${page}`
   );
 }

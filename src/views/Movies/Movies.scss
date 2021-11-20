@@ -13,15 +13,18 @@ li {
   padding: 20px;
 }
 .formMovies {
-  width: 300px;
   height: 50px;
+  width: 80%;
   display: flex;
   margin-bottom: 20px;
   button {
-    width: 100px;
+    width: 20%;
+    min-width: 100px;
   }
   input {
     text-align: center;
     font-size: 100%;
+    width: 60%;
+    min-width: 150px;
   }
 }

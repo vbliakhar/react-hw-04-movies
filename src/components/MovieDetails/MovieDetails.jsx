@@ -29,8 +29,6 @@ const MovieDetails = () => {
     });
   }, [moviesId]);
   const onGoBack = () => {
-    console.log(location?.state?.form ?? "Error");
-    // console.log(location.state.from.pathname);
     if (location && location.state && location.state.form) {
       history.push(location.state.form.location);
       return;
@@ -43,7 +41,6 @@ const MovieDetails = () => {
       {/* <PageHeading text={`test ${moviesId}`} /> */}
       {movie && (
         <>
-          {console.log(location?.state?.form?.location ?? "helper")}
           <button className={style.button} type="button" onClick={onGoBack}>
             {location?.state?.form?.label ?? "Go back"}
           </button>
@@ -57,10 +54,15 @@ const MovieDetails = () => {
           ) : (
             <ImageError />
           )}
-
-          <h2>{movie.title}</h2>
+          <h3>Genres: </h3>
+          {movie.genres &&
+            movie.genres.map((genre) => <li key={genre.id}>{genre.name}</li>)}
+          <h3>{movie.title}</h3>
           <p>Author: {movie.title}</p>
           <p>Overview: {movie.overview}</p>
+          <p>
+            tmbd: <span>{movie.vote_average}</span>
+          </p>
           <hr />
           <p>Additional information</p>
           <ul>
